@@ -1,16 +1,16 @@
 {
-    "name": "@iruxu/pkg-widget",
-    "version": "0.1.8",
+    "name": "@2kog/pkg-widget",
+    "version": "0.1.9",
     "type": "module",
     "scripts": {
         "dev": "vite",
         "build": "vite build",
         "preview": "vite preview",
-        "update": "npm install @iruxu/rx-common@latest --registry=https://registry.npmjs.org"
+        "update": "npm install @2kog/pkg-common@latest --registry=https://registry.npmjs.org"
     },
     "dependencies": {
         "@element-plus/icons-vue": "^2.3.1",
-        "@iruxu/rx-common": "^0.1.5",
+        "@2kog/pkg-common": "^0.1.21",
         "csslab": "^4.0.4",
         "element-plus": "^2.8.4",
         "flag-icons": "^7.2.3",
@@ -28,10 +28,10 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/fuyanlove/pkg-widget.git"
+        "url": "git+https://github.com/2kog/pkg-widget.git"
     },
     "bugs": {
-        "url": "https://github.com/fuyanlove/pkg-widget/issues"
+        "url": "https://github.com/2kog/pkg-widget/issues"
     },
-    "homepage": "https://github.com/fuyanlove/pkg-widget#readme"
+    "homepage": "https://github.com/2kog/pkg-widget#readme"
 }

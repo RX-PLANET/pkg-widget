@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import {buildOssSuffix} from "@iruxu/rx-common/utils/common";
+import {buildOssSuffix} from "@2kog/pkg-common/utils/common";
 import cloneDeep from "lodash/cloneDeep";
 export default {
     name: "UploadImage",

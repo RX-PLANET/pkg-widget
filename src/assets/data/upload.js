@@ -1,4 +1,4 @@
-import { $cms } from "@iruxu/rx-common/utils/api";
+import { $cms } from "@2kog/pkg-common/utils/api";
 // 这是vite
 const domain = import.meta.env.VITE_APP_CMS_API;
 

@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import Lang from "@iruxu/rx-common/data/language.json";
+import Lang from "@2kog/pkg-common/data/language.json";
 import "flag-icons/css/flag-icons.min.css";
-import User from "@iruxu/rx-common/utils/user";
+import User from "@2kog/pkg-common/utils/user";
 export default {
     name: "LangSelect",
     props: {
