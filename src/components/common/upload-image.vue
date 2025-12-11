@@ -95,6 +95,10 @@ export default {
     watch: {
         url: {
             handler: function (val) {
+                if (val?.startsWith("http") || val?.startsWith("data:")) {
+                    this.data = val;
+                    return;
+                }
                 this.data = val && this.getAvatar(this.domain + val) || cloneDeep(this.defaultAvatar);
             },
             immediate: true,
