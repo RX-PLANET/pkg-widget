@@ -5,7 +5,9 @@
 
         <UploadImage :upload-fn="uploadImage" :domain="domain" :url="avatar"></UploadImage>
 
-        <langSelect selected="icon" :with-flag="false"></langSelect>
+        <langSelect :show-flag="false"
+                    :show-name="true"
+                    :optionsWithFlag="false"></langSelect>
         <pay></pay>
     </div>
 </template>

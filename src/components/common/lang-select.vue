@@ -2,7 +2,7 @@
     <div class="c-lang-select">
         <div class="u-select-label">
             <span v-show="showFlag" class="fi u-flag" :class="flag"></span>
-            <img v-if="!showFlag" class="u-earth" src="../../assets/img/earth.svg" alt="">
+            <img v-if="!showFlag" class="u-earth" :src="earthIcon" alt="earth" />
             <span class="u-name" v-show="showName">{{ name }}</span>
         </div>
         <el-select class="u-select" v-model="current" popper-class="c-lang-select__pop" filterable :filter-method="filterMethod" @change="onLangChange">
@@ -18,6 +18,7 @@
 import Lang from "@2kog/pkg-common/data/language.json";
 import "flag-icons/css/flag-icons.min.css";
 import User from "@2kog/pkg-common/utils/user";
+import earthIcon from "../../assets/img/earth.svg";
 export default {
     name: "LangSelect",
     props: {
@@ -41,7 +42,7 @@ export default {
     data() {
         return {
             current: "",
-
+            earthIcon,
             filterLanguages: [],
         };
     },

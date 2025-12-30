@@ -22,8 +22,7 @@
                 <el-tab-pane :label="t('payment.wepay')" name="wepay">
                     <template #label>
                         <span class="u-tab">
-                            <!-- <img src="../../assets/img/pay/wepay.svg" /> -->
-                            <wePay></wePay>
+                            <img :src="wePay" />
                             {{ t('payment.wepay') }}
                             <em>{{ t('payment.wepayTip') }}</em>
                         </span>
@@ -32,8 +31,7 @@
                 <el-tab-pane :label="t('payment.alipay')" name="alipay">
                     <template #label>
                         <span class="u-tab">
-                            <!-- <img src="../../assets/img/pay/alipay.svg" /> -->
-                            <aliPay></aliPay>
+                            <img :src="aliPay" />
                             {{ t('payment.alipay') }}
                             <em>{{ t('payment.alipayTip') }}</em>
                         </span>
@@ -144,8 +142,7 @@ export default {
         Loading,
         CircleCheck,
         QrcodeVue,
-        wePay,
-        aliPay,
+
     },
     // 使用独立的 i18n 实例
     i18n: payI18n,
@@ -238,6 +235,9 @@ export default {
             orderPollingTimer: null,
             paymentPollingTimer: null,
             pollingRetries: 0,
+
+            wePay,
+            aliPay,
         };
     },
     computed: {
@@ -647,7 +647,7 @@ export default {
                 align-items: center;
                 color: @color;
 
-                svg {
+                img {
                     width: 24px;
                     height: 24px;
                     vertical-align: middle;
