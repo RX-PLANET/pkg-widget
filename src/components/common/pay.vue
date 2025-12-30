@@ -22,7 +22,8 @@
                 <el-tab-pane :label="t('payment.wepay')" name="wepay">
                     <template #label>
                         <span class="u-tab">
-                            <img src="../../assets/img/pay/wepay.svg" />
+                            <!-- <img src="../../assets/img/pay/wepay.svg" /> -->
+                            <wePay></wePay>
                             {{ t('payment.wepay') }}
                             <em>{{ t('payment.wepayTip') }}</em>
                         </span>
@@ -31,7 +32,8 @@
                 <el-tab-pane :label="t('payment.alipay')" name="alipay">
                     <template #label>
                         <span class="u-tab">
-                            <img src="../../assets/img/pay/alipay.svg" />
+                            <!-- <img src="../../assets/img/pay/alipay.svg" /> -->
+                            <aliPay></aliPay>
                             {{ t('payment.alipay') }}
                             <em>{{ t('payment.alipayTip') }}</em>
                         </span>
@@ -112,6 +114,8 @@ import QrcodeVue from "qrcode.vue";
 import { createI18n } from "vue-i18n";
 import enUs from "../../locale/en-us";
 import zhCn from "../../locale/zh-cn";
+import wePay from "../../assets/img/pay/wepay.svg";
+import aliPay from "../../assets/img/pay/alipay.svg";
 
 // 创建独立的 i18n 实例
 const getLocale = () => {
@@ -140,6 +144,8 @@ export default {
         Loading,
         CircleCheck,
         QrcodeVue,
+        wePay,
+        aliPay,
     },
     // 使用独立的 i18n 实例
     i18n: payI18n,
@@ -641,7 +647,7 @@ export default {
                 align-items: center;
                 color: @color;
 
-                img {
+                svg {
                     width: 24px;
                     height: 24px;
                     vertical-align: middle;
