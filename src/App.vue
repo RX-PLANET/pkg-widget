@@ -9,6 +9,8 @@
                     :show-name="true"
                     :optionsWithFlag="false"></langSelect>
         <pay></pay>
+
+        <payment ></payment>
     </div>
 </template>
 
@@ -18,13 +20,15 @@ import UploadImage from "./components/common/upload-image.vue";
 import {upload} from "./assets/data/upload";
 import langSelect from "./components/common/lang-select.vue";
 import pay from "./demo/pay-dialog-demo.vue";
+import payment from "./components/common/payment.vue";
 export default {
     name: "App",
     components: {
         Logo,
         UploadImage,
         langSelect,
-        pay
+        pay,
+        payment
     },
     data() {
         return {

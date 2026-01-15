@@ -8,13 +8,13 @@ export default defineConfig({
     plugins: [vue(), svgLoader(), vitePluginRequire.default()],
     server: {
         proxy: {
-            '/api': {
-                target: 'https://pay.dpying.com',
+            "/api": {
+                target: "https://pay.dpying.com",
                 changeOrigin: true,
                 secure: false,
                 // 不需要 rewrite,保持完整路径
-            }
-        }
+            },
+        },
     },
     css: {
         preprocessorOptions: {
