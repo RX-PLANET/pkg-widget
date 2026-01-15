@@ -1,44 +1,39 @@
 <template>
     <div class="c-payment-component">
-        <div class="text-center my-8 c-payment__header">
+        <div class="c-payment__header">
             <slot name="header"></slot>
         </div>
 
         <!-- 右侧：支付操作区 -->
         <div class="modal-main m-purchase-pay-main">
             <!-- 支付方式切换 -->
-            <div class="grid grid-cols-2 gap-4 mb-8">
+            <div class="payment-methods-grid">
                 <slot name="payment-methods" :methods="paymentMethods" :active="activeMethod" :switch="switchPay">
                     <button
                         v-for="method in paymentMethods"
                         :key="method.value"
                         @click="switchPay(method.value)"
-                        class="pay-method-btn rounded-2xl p-4 flex flex-col items-center gap-2 cursor-pointer"
+                        class="pay-method-btn"
                         :class="[
                             activeMethod === method.value ? 'active ' + method.activeClass : '',
                             method.customClass || '',
                         ]"
                     >
-                        <i :class="method.icon" class="text-2xl"></i>
-                        <span class="text-xs font-medium">{{ method.label }}</span>
+                        <i :class="method.icon" class="method-icon"></i>
+                        <span class="method-label">{{ method.label }}</span>
                     </button>
                 </slot>
             </div>
 
             <!-- 二维码区 -->
-            <div class="flex flex-col items-center justify-center relative">
+            <div class="qrcode-container">
                 <div class="qr-wrapper">
                     <slot name="badge"></slot>
-                    <div
-                        class="w-44 h-44 bg-gray-50 rounded-xl flex items-center justify-center p-2 relative overflow-hidden"
-                    >
+                    <div class="qrcode-box">
                         <!-- Loading 状态 -->
-                        <div
-                            v-if="loading"
-                            class="absolute inset-0 flex items-center justify-center bg-white rounded-xl"
-                        >
+                        <div v-if="loading" class="loading-overlay">
                             <slot name="loading">
-                                <i class="fas fa-spinner fa-spin text-3xl text-gray-400"></i>
+                                <i class="fas fa-spinner fa-spin loading-icon"></i>
                             </slot>
                         </div>
 
@@ -46,7 +41,7 @@
                         <QrcodeVue
                             v-else-if="qrcodeUrl"
                             :value="qrcodeUrl"
-                            class="w-full h-full"
+                            class="qrcode-image"
                             :size="160"
                             level="H"
                         />
@@ -54,19 +49,19 @@
                         <!-- 默认图标 -->
                         <slot v-else name="placeholder" :activeMethod="activeMethod">
                             <i
-                                class="text-7xl"
+                                class="placeholder-icon"
                                 :class="currentPaymentMethod?.icon || 'fas fa-qrcode text-gray-400'"
                             ></i>
                         </slot>
                     </div>
                 </div>
-                <div class="mt-6 flex items-center gap-2 text-gray-400 text-xs bg-white/5 px-4 py-2 rounded-full">
-                    <i class="fas fa-lock text-emerald-500"></i>
+                <div class="secure-badge">
+                    <i class="fas fa-lock secure-icon"></i>
                     {{ t("pay.secureChannel") }}
                 </div>
 
                 <!-- 错误提示 -->
-                <div v-if="errorMsg" class="mt-4 text-red-400 text-xs text-center">
+                <div v-if="errorMsg" class="error-message">
                     <slot name="error" :message="errorMsg">
                         {{ errorMsg }}
                     </slot>
@@ -74,7 +69,7 @@
             </div>
 
             <!-- 底部插槽 -->
-            <div class="mt-8 text-center">
+            <div class="footer-slot">
                 <slot name="footer" :texts="texts"></slot>
             </div>
         </div>
@@ -447,6 +442,135 @@ export default {
     border: 1px solid rgb(31 41 55);
 }
 
+.c-payment__header {
+    text-align: center;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.payment-methods-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.pay-method-btn {
+    border-radius: 1rem;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    border: 2px solid rgba(255, 255, 255, 0.05);
+    transition: all 0.3s;
+    background: transparent;
+
+    .method-icon {
+        font-size: 1.5rem;
+    }
+
+    .method-label {
+        font-size: 0.75rem;
+        font-weight: 500;
+    }
+}
+
+.pay-method-btn.active.wechat {
+    border-color: #10b981;
+    background: rgba(16, 185, 129, 0.05);
+}
+
+.pay-method-btn.active.alipay {
+    border-color: #3b82f6;
+    background: rgba(59, 130, 246, 0.05);
+}
+
+.qrcode-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.qr-wrapper {
+    background: white;
+    padding: 12px;
+    border-radius: 24px;
+    position: relative;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+}
+
+.qrcode-box {
+    width: 11rem;
+    height: 11rem;
+    background-color: #f9fafb;
+    border-radius: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 0.75rem;
+}
+
+.loading-icon {
+    font-size: 1.875rem;
+    color: #9ca3af;
+}
+
+.qrcode-image {
+    width: 100%;
+    height: 100%;
+}
+
+.placeholder-icon {
+    font-size: 4.5rem;
+}
+
+.secure-badge {
+    margin-top: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #9ca3af;
+    font-size: 0.75rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    padding: 0.5rem 1rem;
+    border-radius: 9999px;
+}
+
+.secure-icon {
+    color: #10b981;
+}
+
+.error-message {
+    margin-top: 1rem;
+    color: #f87171;
+    font-size: 0.75rem;
+    text-align: center;
+}
+
+.footer-slot {
+    margin-top: 2rem;
+    text-align: center;
+}
+
 .m-purchase-pay-main {
     /* 左侧特权侧边栏 - 增加了图片背景风格 */
     .modal-sidebar {
@@ -477,27 +601,6 @@ export default {
         padding: 40px;
         background: #0f172a;
         position: relative;
-    }
-
-    .pay-method-btn {
-        border: 2px solid rgba(255, 255, 255, 0.05);
-        transition: all 0.3s;
-    }
-    .pay-method-btn.active.wechat {
-        border-color: #10b981;
-        background: rgba(16, 185, 129, 0.05);
-    }
-    .pay-method-btn.active.alipay {
-        border-color: #3b82f6;
-        background: rgba(59, 130, 246, 0.05);
-    }
-
-    .qr-wrapper {
-        background: white;
-        padding: 12px;
-        border-radius: 24px;
-        position: relative;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     }
 
     .badge-discount {
