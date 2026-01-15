@@ -50,7 +50,7 @@
                         <slot v-else name="placeholder" :activeMethod="activeMethod">
                             <i
                                 class="placeholder-icon"
-                                :class="currentPaymentMethod?.icon || 'fas fa-qrcode text-gray-400'"
+                                :class="currentPaymentMethod?.icon || 'fas fa-qrcode'"
                             ></i>
                         </slot>
                     </div>
@@ -149,16 +149,16 @@ export default {
                 {
                     value: "wepay",
                     label: payI18n.global.t("pay.wechat"),
-                    icon: "fab fa-weixin text-emerald-500",
-                    activeClass: "text-emerald-500",
+                    icon: "fab fa-weixin wepay-icon",
+                    activeClass: "",
                     customClass: "wechat",
                     channel: "wepay",
                 },
                 {
                     value: "alipay",
                     label: payI18n.global.t("pay.alipay"),
-                    icon: "fab fa-alipay text-blue-500",
-                    activeClass: "text-blue-500",
+                    icon: "fab fa-alipay alipay-icon",
+                    activeClass: "",
                     customClass: "alipay",
                     channel: {
                         mobile: "alipay_wap",
@@ -475,6 +475,14 @@ export default {
         font-size: 0.75rem;
         font-weight: 500;
     }
+
+}
+.wepay-icon {
+    color: #10b981;
+}
+
+.alipay-icon {
+    color: #3b82f6;
 }
 
 .pay-method-btn.active.wechat {
