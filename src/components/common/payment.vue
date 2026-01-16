@@ -56,8 +56,8 @@
                     </div>
                 </div>
                 <div class="secure-badge">
-                    <i class="fas fa-lock secure-icon"></i>
-                    {{ t("pay.secureChannel") }}
+                    <i class="fas fa-qrcode"></i>
+                    <span>{{ t(`pay.${activeMethod === "wepay" ? "wechatScan" : "alipayScan"}`) }}</span>
                 </div>
 
                 <!-- 错误提示 -->
@@ -70,7 +70,12 @@
 
             <!-- 底部插槽 -->
             <div class="footer-slot">
-                <slot name="footer" :texts="texts"></slot>
+                <slot name="footer" :texts="texts">
+                    <div class="m-agreement">
+                        <i class="fas fa-shield-halved agreement-icon"></i>
+                        <span class="agreement-text" v-html="t('pay.agreement')"></span>
+                    </div>
+                </slot>
             </div>
         </div>
     </div>
@@ -140,6 +145,10 @@ export default {
         autoStart: {
             type: Boolean,
             default: false,
+        },
+        termLink: {
+            type: String,
+            default: "/link",
         },
     },
     data() {
@@ -432,14 +441,50 @@ export default {
 <style lang="less">
 .c-payment-component {
     // max-width: 28rem;
-    flex: 1;
     width: 100%;
-    background-color: #12141a;
-    color: white;
+    background-color: #fff;
+    color: #333;
     // border-radius: 1rem;
     padding: 2rem;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     border: 1px solid rgb(31 41 55);
+
+    .m-agreement {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 0.6rem;
+        font-size: 0.75rem;
+        color: #94a3b8;
+        line-height: 1.5;
+        max-width: 80%;
+        margin: 0 auto;
+        padding: 0.8rem 1rem;
+        border-radius: 0.75rem;
+        transition: all 0.3s ease;
+
+        .agreement-icon {
+            margin-top: 0.15rem;
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+
+        .agreement-text {
+            text-align: left;
+
+            .u-link {
+                color: #3b82f6;
+                font-weight: 600;
+                cursor: pointer;
+                text-decoration: underline;
+                text-underline-offset: 2px;
+
+                &:hover {
+                    color: #2563eb;
+                }
+            }
+        }
+    }
 }
 
 .c-payment__header {
@@ -463,7 +508,7 @@ export default {
     align-items: center;
     gap: 0.5rem;
     cursor: pointer;
-    border: 2px solid rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(0, 0, 0, 0.05);
     transition: all 0.3s;
     background: transparent;
 

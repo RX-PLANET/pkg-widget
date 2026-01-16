@@ -10,7 +10,7 @@
                     :optionsWithFlag="false"></langSelect>
         <pay></pay>
 
-        <payment ></payment>
+        <payment term-link="/link"></payment>
     </div>
 </template>
 
