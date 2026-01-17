@@ -503,7 +503,7 @@ export default {
         display: flex;
         align-items: flex-start;
         justify-content: center;
-        gap: 0.6rem;
+        gap: 5px;
         font-size: 0.75rem;
         color: #94a3b8;
         line-height: 1.5;
