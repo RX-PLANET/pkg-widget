@@ -604,7 +604,7 @@ export default {
 .qrcode-box {
     width: 11rem;
     height: 11rem;
-    background-color: #f9fafb;
+    background-color: #fff;
     border-radius: 0.75rem;
     display: flex;
     align-items: center;
