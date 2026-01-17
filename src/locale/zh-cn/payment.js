@@ -12,7 +12,8 @@ export default {
         getQrcodeFailed: "获取支付二维码失败，请重试",
         paymentTimeout: "支付超时，如已支付请联系客服",
         paymentFailed: "支付失败，请重试",
-        agreement:
-            "支付即视为同意<a class='u-link' href={termLink}>《服务条款》</a>，虚拟服务不支持7天无理由退款",
+        agreement_prefix: "支付即视为同意",
+        agreement_link: "服务条款",
+        agreement_suffix: "，虚拟服务不支持7天无理由退款",
     },
 };

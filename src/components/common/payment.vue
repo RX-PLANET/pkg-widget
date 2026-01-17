@@ -8,14 +8,21 @@
         <div class="modal-main m-purchase-pay-main">
             <!-- 支付方式切换 -->
             <div class="payment-methods-grid">
-                <slot name="payment-methods" :methods="paymentMethods" :active="activeMethod" :switch="switchPay">
+                <slot
+                    name="payment-methods"
+                    :methods="paymentMethods"
+                    :active="activeMethod"
+                    :switch="switchPay"
+                >
                     <button
                         v-for="method in paymentMethods"
                         :key="method.value"
                         @click="switchPay(method.value)"
                         class="pay-method-btn"
                         :class="[
-                            activeMethod === method.value ? 'active ' + method.activeClass : '',
+                            activeMethod === method.value
+                                ? 'active ' + method.activeClass
+                                : '',
                             method.customClass || '',
                         ]"
                     >
@@ -33,7 +40,9 @@
                         <!-- Loading 状态 -->
                         <div v-if="loading" class="loading-overlay">
                             <slot name="loading">
-                                <i class="fas fa-spinner fa-spin loading-icon"></i>
+                                <i
+                                    class="fas fa-spinner fa-spin loading-icon"
+                                ></i>
                             </slot>
                         </div>
 
@@ -47,17 +56,28 @@
                         />
 
                         <!-- 默认图标 -->
-                        <slot v-else name="placeholder" :activeMethod="activeMethod">
+                        <slot
+                            v-else
+                            name="placeholder"
+                            :activeMethod="activeMethod"
+                        >
                             <i
                                 class="placeholder-icon"
-                                :class="currentPaymentMethod?.icon || 'fas fa-qrcode'"
+                                :class="
+                                    currentPaymentMethod?.icon ||
+                                    'fas fa-qrcode'
+                                "
                             ></i>
                         </slot>
                     </div>
                 </div>
                 <div class="secure-badge">
                     <i class="fas fa-qrcode"></i>
-                    <span>{{ t(`pay.${activeMethod === "wepay" ? "wechatScan" : "alipayScan"}`) }}</span>
+                    <span>{{
+                        t(
+                            `pay.${activeMethod === "wepay" ? "wechatScan" : "alipayScan"}`,
+                        )
+                    }}</span>
                 </div>
 
                 <!-- 错误提示 -->
@@ -73,7 +93,13 @@
                 <slot name="footer" :texts="texts">
                     <div class="m-agreement">
                         <i class="fas fa-shield-halved agreement-icon"></i>
-                        <span class="agreement-text" v-html="t('pay.agreement')"></span>
+                        <span class="agreement-text">
+                            {{ t("pay.agreement_prefix") }}
+                            <a class="u-link" :href="termLink">{{
+                                t("pay.agreement_link")
+                            }}</a>
+                            {{ t("pay.agreement_suffix") }}
+                        </span>
                     </div>
                 </slot>
             </div>
@@ -89,13 +115,13 @@ import zhCn from "../../locale/zh-cn/payment";
 
 // 创建独立的 i18n 实例
 const getLocale = () => {
-    const storedLanguage = localStorage.getItem('lang');
+    const storedLanguage = localStorage.getItem("lang");
     if (!storedLanguage) {
         return navigator.language;
     } else {
         return storedLanguage;
     }
-}
+};
 
 const payI18n = createI18n({
     locale: getLocale(),
@@ -148,7 +174,7 @@ export default {
         },
         termLink: {
             type: String,
-            default: "/link",
+            default: "/doc/terms",
         },
     },
     data() {
@@ -218,11 +244,15 @@ export default {
     },
     computed: {
         isMobile() {
-            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+                navigator.userAgent,
+            );
         },
 
         currentPaymentMethod() {
-            return this.paymentMethods.find((m) => m.value === this.activeMethod);
+            return this.paymentMethods.find(
+                (m) => m.value === this.activeMethod,
+            );
         },
 
         actualPayChannel() {
@@ -234,7 +264,9 @@ export default {
             }
 
             if (typeof method.channel === "object") {
-                return this.isMobile ? method.channel.mobile : method.channel.pc;
+                return this.isMobile
+                    ? method.channel.mobile
+                    : method.channel.pc;
             }
 
             return this.activeMethod;
@@ -320,13 +352,17 @@ export default {
                 try {
                     this.orderPollingRetries++;
 
-                    if (this.orderPollingRetries > this.pollingConfig.maxRetries) {
+                    if (
+                        this.orderPollingRetries > this.pollingConfig.maxRetries
+                    ) {
                         this.clearTimer("order");
                         this.handleError(this.texts.orderTimeout);
                         return;
                     }
 
-                    const response = await this.api.getOrderStatus(this.pendingOrderId);
+                    const response = await this.api.getOrderStatus(
+                        this.pendingOrderId,
+                    );
 
                     if (response && response.status === 2) {
                         this.clearTimer("order");
@@ -335,7 +371,9 @@ export default {
                         await this.getPaymentQrcode();
                     } else if (response && response.status === -1) {
                         this.clearTimer("order");
-                        this.handleError(response.message || this.texts.orderFailed);
+                        this.handleError(
+                            response.message || this.texts.orderFailed,
+                        );
                     }
                 } catch (err) {
                     console.error("Failed to poll order status:", err);
@@ -355,7 +393,11 @@ export default {
                     params.qr_pay_mode = QR_PAY_MODE_ALIPAY_PC;
                 }
 
-                const response = await this.api.getPaymentQRCode(this.paymentId, this.actualPayChannel, params);
+                const response = await this.api.getPaymentQRCode(
+                    this.paymentId,
+                    this.actualPayChannel,
+                    params,
+                );
 
                 if (response) {
                     this.qrcode = response.qrcode || response;
@@ -381,14 +423,19 @@ export default {
                 try {
                     this.paymentPollingRetries++;
 
-                    if (this.paymentPollingRetries > this.pollingConfig.maxRetries) {
+                    if (
+                        this.paymentPollingRetries >
+                        this.pollingConfig.maxRetries
+                    ) {
                         this.clearTimer("payment");
                         this.warningVisible = true;
                         this.handleError(this.texts.paymentTimeout);
                         return;
                     }
 
-                    const response = await this.api.queryPaymentStatus(this.paymentId);
+                    const response = await this.api.queryPaymentStatus(
+                        this.paymentId,
+                    );
 
                     if (response && response.status === 1) {
                         this.clearTimer("payment");
@@ -473,15 +520,11 @@ export default {
             text-align: left;
 
             .u-link {
-                color: #3b82f6;
+                color: #6777ef;
                 font-weight: 600;
                 cursor: pointer;
                 text-decoration: underline;
                 text-underline-offset: 2px;
-
-                &:hover {
-                    color: #2563eb;
-                }
             }
         }
     }
@@ -520,7 +563,6 @@ export default {
         font-size: 0.75rem;
         font-weight: 500;
     }
-
 }
 .wepay-icon {
     color: #10b981;
@@ -639,7 +681,11 @@ export default {
         content: "";
         position: absolute;
         inset: 0;
-        background: linear-gradient(180deg, rgba(15, 23, 42, 0.85) 0%, rgba(15, 23, 42, 0.95) 100%);
+        background: linear-gradient(
+            180deg,
+            rgba(15, 23, 42, 0.85) 0%,
+            rgba(15, 23, 42, 0.95) 100%
+        );
         z-index: 1;
     }
 

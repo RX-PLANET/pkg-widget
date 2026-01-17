@@ -3,21 +3,27 @@
         <h1>IRuxu Pkg Widget</h1>
         <Logo></Logo>
 
-        <UploadImage :upload-fn="uploadImage" :domain="domain" :url="avatar"></UploadImage>
+        <UploadImage
+            :upload-fn="uploadImage"
+            :domain="domain"
+            :url="avatar"
+        ></UploadImage>
 
-        <langSelect :show-flag="false"
-                    :show-name="true"
-                    :optionsWithFlag="false"></langSelect>
+        <langSelect
+            :show-flag="false"
+            :show-name="true"
+            :optionsWithFlag="false"
+        ></langSelect>
         <pay></pay>
 
-        <payment term-link="/link"></payment>
+        <payment term-link="/doc/terms"></payment>
     </div>
 </template>
 
 <script>
 import Logo from "./components/common/logo.vue";
 import UploadImage from "./components/common/upload-image.vue";
-import {upload} from "./assets/data/upload";
+import { upload } from "./assets/data/upload";
 import langSelect from "./components/common/lang-select.vue";
 import pay from "./demo/pay-dialog-demo.vue";
 import payment from "./components/common/payment.vue";
@@ -28,7 +34,7 @@ export default {
         UploadImage,
         langSelect,
         pay,
-        payment
+        payment,
     },
     data() {
         return {
@@ -38,14 +44,14 @@ export default {
             domain: "https://cdn.iruxu.com/",
             avatar: "user/avatar/2024/11/27/81348085.jpeg",
 
-            show: true
+            show: true,
         };
     },
     methods: {
         uploadImage(file) {
-            return upload(file)
-        }
-    }
+            return upload(file);
+        },
+    },
 };
 </script>
 

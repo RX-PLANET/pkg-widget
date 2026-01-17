@@ -14,7 +14,9 @@ export default {
         paymentTimeout:
             "Payment timed out, please contact customer service if you have paid",
         paymentFailed: "Payment failed, please try again",
-        agreement:
-            "Payment signifies agreement to the <span class='u-link'>Terms of Service</span>. Virtual services are not eligible for 7-day unconditional refunds.",
+        agreement_prefix: "Payment signifies agreement to the",
+        agreement_link: "Service Terms",
+        agreement_suffix:
+            ", Virtual services are not eligible for 7-day unconditional refunds.",
     },
 };
