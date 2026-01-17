@@ -95,9 +95,12 @@
                         <i class="fas fa-shield-halved agreement-icon"></i>
                         <span class="agreement-text">
                             {{ t("pay.agreement_prefix") }}
-                            <a class="u-link" :href="termLink">{{
-                                t("pay.agreement_link")
-                            }}</a>
+                            <a
+                                class="u-link"
+                                :href="termLink"
+                                target="_blank"
+                                >{{ t("pay.agreement_link") }}</a
+                            >
                             {{ t("pay.agreement_suffix") }}
                         </span>
                     </div>
