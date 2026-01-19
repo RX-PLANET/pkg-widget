@@ -121,6 +121,7 @@ export default {
         box-shadow: 1px 0 0 0 #dcdfe6 inset, 0 1px 0 0 #dcdfe6 inset, 0 -1px 0 0 #dcdfe6 inset;
         font-size: 14px;
         box-sizing: border-box;
+        gap: 3px;
     }
     .el-select {
         .el-input__wrapper,
@@ -136,8 +137,8 @@ export default {
     }
 
     .u-earth {
-        height: 14px;
-        width: 14px;
+        height: 18px;
+        width: 18px;
     }
 }
 .c-lang-select__pop {
