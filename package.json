@@ -1,6 +1,6 @@
 {
     "name": "@2kog/pkg-widget",
-    "version": "0.1.24",
+    "version": "0.1.25",
     "type": "module",
     "scripts": {
         "dev": "vite",
@@ -29,10 +29,10 @@
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/2kog/pkg-widget.git"
+        "url": "git+https://github.com/RX-PLANET/pkg-widget.git"
     },
     "bugs": {
-        "url": "https://github.com/2kog/pkg-widget/issues"
+        "url": "https://github.com/RX-PLANET/pkg-widget/issues"
     },
-    "homepage": "https://github.com/2kog/pkg-widget#readme"
+    "homepage": "https://github.com/RX-PLANET/pkg-widget#readme"
 }
